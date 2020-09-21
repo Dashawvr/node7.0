@@ -1,7 +1,7 @@
 const express = require('express');
 
-const {initDBAssociation} = require('./models');
-const {userRouter, authRouter} = require('./routes');
+const { initDBAssociation } = require('./models');
+const { userRouter, authRouter } = require('./routes');
 
 const app = express();
 
