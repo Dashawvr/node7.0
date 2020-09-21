@@ -7,7 +7,8 @@ const {
     },
     authController: {
         login,
-        logout
+        logout,
+        refreshToken
     }
 } = require('../controllers');
 
@@ -15,7 +16,8 @@ const {
     authMiddleware: {
         checkIsUserRegistered,
         checkUserPassword,
-        checkAccessToken
+        checkAccessToken,
+        checkRefreshToken
     }
 } = require('../middleware');
 
@@ -24,6 +26,6 @@ const router = express.Router();
 
 router.post('/login', checkIsUserRegistered, checkUserPassword, login);
 router.post('/logout', checkAccessToken, logout);
-// router.post('/', create)
+router.post('/refresh', checkRefreshToken, refreshToken);
 
 module.exports = router

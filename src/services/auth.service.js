@@ -1,17 +1,24 @@
-const {TokenModel} = require('../models');
+const {TokenModel, UserModel} = require('../models');
 
 module.exports = {
     create: (token) => {
         return TokenModel.create(token);
     },
+
     deleteByAccessToken: (access_token) => {
         return TokenModel.destroy({
             where: {
                 access_token
             }
         })
-    }
-    // getAll: ()=>{
-    //     return UserModel.findAndCountAll();
-    // }
+    },
+
+
+    deleteByRefreshToken: (refresh_token) => {
+        return TokenModel.destroy({
+            where: {
+                refresh_token
+            }
+        })
+    },
 }

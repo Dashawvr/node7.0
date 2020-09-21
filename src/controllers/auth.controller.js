@@ -3,38 +3,63 @@ const {tokinazer} = require('../helpers');
 
 module.exports = {
     login: async (req, res, next) => {
-        const {id: user_id} = req.user;
+        try {
+            const {id: user_id} = req.user;
 
-        const token = tokinazer();
+            const token = tokinazer();
 
-        await authService.create({
-            ...token,
-            user_id
-        })
+            await authService.create({
+                ...token,
+                user_id
+            })
 
 
-        res.json({
-            data: {
-                token
-            }
-        })
+            res.json({
+                data: {
+                    token
+                }
+            })
+        } catch (e) {
+            next(e);
+        }
+
     },
+
     logout: async (req, res, next) => {
-        const access_token = req.access_token;
-        // const {id} = req.authUser;
+        try {
+            const access_token = req.access_token;
 
-        await authService.deleteByAccessToken(access_token);
+            await authService.deleteByAccessToken(access_token);
 
-        res.end()
+            res.end();
+        } catch (e) {
+            next(e);
+        }
+
+
+    },
+
+    refreshToken: async (req, res, next) => {
+        try {
+            const {id: user_id} = req.user;
+            const refresh_token = req.refresh_token;
+            const token = tokinazer();
+
+            await authService.deleteByRefreshToken(refresh_token);
+
+            await authService.create({
+                ...token,
+                user_id
+            })
+
+            res.json({
+                data: {
+                    token
+                }
+            })
+        } catch (e) {
+            next(e);
+        }
 
     }
-    // getAll: async (req, res, next) => {
-    //     const users = await userService.getAll();
-    //
-    //     res.json({
-    //         data: {
-    //             users
-    //         }
-    //     })
-    // }
 }

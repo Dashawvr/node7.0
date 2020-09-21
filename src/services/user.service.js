@@ -23,5 +23,24 @@ module.exports = {
                 }
             }
         })
-    }
+    },
+    getByParams: (params) => {
+        return TokenModel.findOne({
+            where: params,
+            raw: true,
+            nest: true,
+            include: [UserModel]
+        })
+    },
+
+    getByRefreshToken: (refresh_token) => {
+        return UserModel.findOne({
+            include: {
+                model: TokenModel,
+                where: {
+                    refresh_token
+                }
+            }
+        })
+    },
 }
