@@ -4,9 +4,11 @@ module.exports = {
     create: (user) => {
         return UserModel.create(user);
     },
+
     getAll: () => {
         return UserModel.findAndCountAll();
     },
+
     getByEmail: (email) => {
         return UserModel.findOne({
             where: {
@@ -14,6 +16,7 @@ module.exports = {
             }
         })
     },
+
     getByAccessToken: (access_token) => {
         return UserModel.findOne({
             include: {
@@ -22,14 +25,6 @@ module.exports = {
                     access_token
                 }
             }
-        })
-    },
-    getByParams: (params) => {
-        return TokenModel.findOne({
-            where: params,
-            raw: true,
-            nest: true,
-            include: [UserModel]
         })
     },
 

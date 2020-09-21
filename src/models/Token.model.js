@@ -1,6 +1,6 @@
-const {Model, DataTypes} = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
-const {sequelize} = require('../configs');
+const { sequelize } = require('../configs');
 
 
 class TokenModel extends Model{}

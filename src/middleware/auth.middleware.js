@@ -3,6 +3,7 @@ const jsonwebtoken = require('jsonwebtoken');
 
 const { userService, authService } = require('../services');
 const { ErrorHandler, errors, statusCode } = require('../errors');
+const { AUTHORIZATION } = require('../configs/constants');
 
 module.exports = {
     checkIsUserRegistered: async (req, res, next) => {
@@ -52,7 +53,7 @@ module.exports = {
 
     checkAccessToken: async (req, res, next) => {
         try {
-            const access_token = req.get('Authorization');
+            const access_token = req.get(AUTHORIZATION);
 
             if (!access_token) {
                 return next(new ErrorHandler(
@@ -62,7 +63,9 @@ module.exports = {
 
             jsonwebtoken.verify(access_token, 'HelloThere', err => {
                 if (err) {
-                    return next(new Error('Token is not valid'));
+                    return next(new ErrorHandler(
+                        statusCode.BAD_REQUEST,
+                        errors.BAD_REQUEST_NOT_VALID_TOKEN.code));
                 }
             });
 
@@ -78,7 +81,7 @@ module.exports = {
 
     checkRefreshToken: async (req, res, next) => {
         try {
-            const refresh_token = req.get('Authorization');
+            const refresh_token = req.get(AUTHORIZATION);
 
             if (!refresh_token) {
                 return next(new ErrorHandler(
@@ -88,14 +91,18 @@ module.exports = {
 
             jsonwebtoken.verify(refresh_token, 'another_secret_Token@', err => {
                 if (err) {
-                    return next(new Error('Token is not valid'));
+                    return next(new ErrorHandler(
+                        statusCode.BAD_REQUEST,
+                        errors.BAD_REQUEST_NOT_VALID_TOKEN.code));
                 }
             });
 
             const token = await userService.getByRefreshToken(refresh_token);
 
             if (!token) {
-                return next(new ErrorHandler('Token is now valid', 401))
+                return next(new ErrorHandler(
+                    statusCode.BAD_REQUEST,
+                    errors.BAD_REQUEST_NOT_VALID_TOKEN.code))
             }
 
             req.refresh_token = refresh_token;

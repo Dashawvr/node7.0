@@ -1,4 +1,4 @@
-const {UserModel, TokenModel}  = require('../models');
+const { UserModel, TokenModel }  = require('../models');
 
 
 module.exports = () => {

@@ -23,20 +23,24 @@ module.exports = {
         message: 'Undefined year. Please check year again',
         code: 4006
     },
-    NOT_FOUND_PERSON: {
-        message: 'User not found',
-        code: 4041
-    },
     BAD_REQUEST_NO_TOKEN: {
         message: 'token not found',
-        code: 4042
+        code: 4007
+    },
+    BAD_REQUEST_BAD_PARAMS: {
+        message: 'bad params',
+        code: 4008
+    },
+    BAD_REQUEST_NOT_VALID_TOKEN: {
+        message: 'Token is not valid',
+        code: 4009
     },
     NOT_FOUND: {
         message: 'Record not found'
 
     },
-    BAD_REQUEST_BAD_PARAMS: {
-        message: 'bad params',
-        code: 4007
+    NOT_FOUND_PERSON: {
+        message: 'User not found',
+        code: 4041
     }
 }

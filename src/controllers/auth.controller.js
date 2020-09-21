@@ -1,5 +1,5 @@
-const {authService} = require('../services');
-const {tokinazer} = require('../helpers');
+const { authService } = require('../services');
+const { tokinazer } = require('../helpers');
 
 module.exports = {
     login: async (req, res, next) => {
@@ -41,15 +41,13 @@ module.exports = {
 
     refreshToken: async (req, res, next) => {
         try {
-            const {id: user_id} = req.user;
             const refresh_token = req.refresh_token;
             const token = tokinazer();
 
             await authService.deleteByRefreshToken(refresh_token);
 
             await authService.create({
-                ...token,
-                user_id
+                ...token
             })
 
             res.json({

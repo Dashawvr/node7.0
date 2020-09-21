@@ -1,7 +1,7 @@
-const {Model, DataTypes} = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
-const {sequelize} = require('../configs');
-const {hashPassword} = require('../helpers');
+const { sequelize } = require('../configs');
+const { hashPassword } = require('../helpers');
 
 
 class UserModel extends Model {

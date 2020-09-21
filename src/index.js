@@ -1,6 +1,6 @@
 const http = require('http');
 
-const {sequelize} = require('./configs');
+const { sequelize } = require('./configs');
 
 const app = require('./app');
 

@@ -1,4 +1,4 @@
-const {TokenModel, UserModel} = require('../models');
+const { TokenModel, UserModel } = require('../models');
 
 module.exports = {
     create: (token) => {
@@ -12,7 +12,6 @@ module.exports = {
             }
         })
     },
-
 
     deleteByRefreshToken: (refresh_token) => {
         return TokenModel.destroy({
