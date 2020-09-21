@@ -10,7 +10,7 @@ const {
 const router = express.Router();
 
 
-router.get('/', getAll)
-router.post('/', create)
+router.get('/', getAll);
+router.post('/', create);
 
 module.exports = router
