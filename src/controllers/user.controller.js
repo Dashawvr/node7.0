@@ -1,4 +1,5 @@
-const { userService } = require('../services');
+const { emailService, userService } = require('../services');
+const { WELCOME } = require('../configs/email-action.enam');
 
 module.exports = {
     create: async (req, res, next) => {
@@ -6,6 +7,8 @@ module.exports = {
             const user = req.body;
 
             await userService.create(user)
+
+            await emailService.sendMail(user.email, WELCOME, {userName: user.email})
 
             res.json({
                 data: {

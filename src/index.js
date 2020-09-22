@@ -9,9 +9,13 @@ const server = http.createServer(app);
 
 sequelize.sync({alter: true}).then(()=>{
     server.listen(5001, ()=> console.log('Server listening on port 5001'))
-}).catch(error=>{
+}).catch(error => {
     console.log(error);
 })
 
+process.on('unhandledRejection', reason => {
+    console.log(reason);
 
+    process.exit(0);
+})
 
