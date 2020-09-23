@@ -9,5 +9,10 @@ module.exports = {
     [emailAction.FORGOT_PASS]: {
         subject: '[Car~Shop] Some problems with Password!',
         templateFileName: 'forgot-pass'
+    },
+
+    [emailAction.LOG_OUT]: {
+        subject: '[Car~Shop] User log out',
+        templateFileName: 'log-out'
     }
 }

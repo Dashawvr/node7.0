@@ -23,14 +23,14 @@ const transporter = mailer.createTransport({
 class EmailService {
     async sendMail(userMail, action, context) {
         try {
-            const inform = htmlTemplates[action];
-            const html = await emailTemplates.render(inform.templateFileName,
+            const templateInfo = htmlTemplates[action];
+            const html = await emailTemplates.render(templateInfo.templateFileName,
                 {...context, frontendUrl: FRONTEND_URL});
 
             const options = {
                 from: 'Car~Shop[NO REPLY]',
                 to: userMail,
-                subject: inform.subject,
+                subject: templateInfo.subject,
                 html
             }
 

@@ -1,9 +1,8 @@
 const express = require('express');
+const dotenv = require(`dotenv`);
 
 const { initDBAssociation } = require('./models');
 const { userRouter, authRouter } = require('./routes');
-
-const dotenv = require(`dotenv`);
 
 const app = express();
 
