@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require(`dotenv`);
+const fileUpload = require('express-fileupload');
 
 const { initDBAssociation } = require('./models');
 const { userRouter, authRouter } = require('./routes');
@@ -10,6 +11,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
+app.use(fileUpload({}))
 
 dotenv.config()
 

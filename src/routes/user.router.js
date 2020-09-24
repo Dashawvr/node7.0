@@ -7,10 +7,19 @@ const {
     }
 } = require('../controllers');
 
+const {
+    checkMiddleware: {
+        checkMiddleware
+    },
+    userMiddleware: {
+        userValidation
+    }
+} = require('../middleware')
+
 const router = express.Router();
 
 
 router.get('/', getAll);
-router.post('/', create);
+router.post('/', userValidation, checkMiddleware, create);
 
 module.exports = router
