@@ -1,20 +1,27 @@
 const {UserModel, TokenModel} = require('../models');
 
+// const Sequelize = require('sequelize');
+// const sqz = new Sequelize().transaction(() => {
+//
+// })
+
 module.exports = {
-    create: (user) => {
-        return UserModel.create(user);
+    create: (user, transaction) => {
+        return UserModel.create(user, transaction);
     },
 
     getAll: () => {
         return UserModel.findAndCountAll();
     },
 
-    updateById: (id, updateObject) => {
-        return UserModel.update({
-            updateObject,
-            where: {id},
-            returning: true
-        });
+    updateById: (id, updateObject, transaction) => {
+        return UserModel.update(
+            {updateObject},
+            {
+                where: {id},
+                returning: true,
+                transaction
+            });
     },
 
     getByEmail: (email) => {

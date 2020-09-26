@@ -35,6 +35,14 @@ module.exports = {
         message: 'Token is not valid',
         code: 4009
     },
+    BAD_REQUEST_TOO_MANY_PHOTOS: {
+        message: 'Please upload one photo.',
+        code: 4001
+    },
+    BAD_REQUEST_PHOTO_BIG_SIZE: {
+      message: 'Very big Size',
+      code: 4002
+    },
     NOT_FOUND: {
         message: 'Record not found'
 

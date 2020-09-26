@@ -3,13 +3,15 @@ const fs = require('fs-extra').promises;
 
 const { emailService, userService } = require('../services');
 const { WELCOME } = require('../configs/email-action.enam');
+const { transaction } = require('../transaction');
 
 module.exports = {
     create: async (req, res, next) => {
+        const transaction = await transaction();
         try {
             const {body: user, avatar} = req;
 
-            await userService.create(user)
+            await userService.create(user, transaction)
 
             await emailService.sendMail(user.email, WELCOME, {userName: user.email})
 
@@ -25,16 +27,17 @@ module.exports = {
                 console.log(user.id);
                 console.log('*****');
 
-                await userService.updateById(user.id, {avatar: `${photoDir}/${photoName}`})
-
+                await userService.updateById(user.id, {avatar: `${photoDir}/${photoName}`}, transaction)
             }
 
+            await transaction.commit();
             res.json({
                 data: {
                     user
                 }
             })
         } catch (e) {
+            await transaction.rollback();
             next(e);
         }
 
