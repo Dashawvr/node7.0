@@ -3,6 +3,8 @@ module.exports = (req, res, next) => {
         if (req.photos > 1) {
             return next (new Error('Please upload one photo'));
         }
+        req.avatar = req.photos[0];
+        next();
     } catch (e) {
         next(e);
     }

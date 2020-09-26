@@ -12,6 +12,7 @@ app.use(express.urlencoded({extended: true}))
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
 app.use(fileUpload({}))
+// app.use(express.static(path.join(process.cwd(), 'src', 'public')))
 
 dotenv.config()
 

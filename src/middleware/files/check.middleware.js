@@ -1,8 +1,8 @@
-const {MAX_DOC_SIZE, MAX_PHOTO_SIZE, DOCS_MIMETYPES, PHOTO_MIMETYPES} = require('../../configs/constants');
+const { MAX_DOC_SIZE, MAX_PHOTO_SIZE, DOCS_MIMETYPES, PHOTO_MIMETYPES } = require('../../configs/constants');
 
-module.exports =  (req, res, next) => {
+module.exports = (req, res, next) => {
     try {
-        if(!req.files) {
+        if (!req.files) {
             return next();
         }
         const photos = [];
@@ -15,25 +15,25 @@ module.exports =  (req, res, next) => {
 
             if (PHOTO_MIMETYPES.includes(mimetype)) {
 
-                if(size > MAX_PHOTO_SIZE) {
+                if (size > MAX_PHOTO_SIZE) {
                     return next(new Error('Very big Size'))
                 }
 
-                photos.push(files[i])
+                photos.push(files[i]);
             } else if (DOCS_MIMETYPES.includes(mimetype)) {
 
-                if(size > MAX_DOC_SIZE) {
+                if (size > MAX_DOC_SIZE) {
                     return next(new Error('Very big Size'))
                 }
 
-                files.push(files[i])
+                files.push(files[i]);
             } else {
                 return next(new Error(`Not valid file ${name}`))
             }
 
-            req.photos = photos
-            req.docs = docs
-            next()
+            req.photos = photos;
+            req.docs = docs;
+            next();
         }
 
     } catch (e) {

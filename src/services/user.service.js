@@ -9,6 +9,14 @@ module.exports = {
         return UserModel.findAndCountAll();
     },
 
+    updateById: (id, updateObject) => {
+        return UserModel.update({
+            updateObject,
+            where: {id},
+            returning: true
+        });
+    },
+
     getByEmail: (email) => {
         return UserModel.findOne({
             where: {
