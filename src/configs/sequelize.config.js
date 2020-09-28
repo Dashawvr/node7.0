@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 module.exports = new Sequelize(
-    'test',
+    'nodeJS',
     'root',
     'HomeHome20012018',
     {

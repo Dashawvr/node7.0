@@ -1,10 +1,5 @@
 const {UserModel, TokenModel} = require('../models');
 
-// const Sequelize = require('sequelize');
-// const sqz = new Sequelize().transaction(() => {
-//
-// })
-
 module.exports = {
     create: (user, transaction) => {
         return UserModel.create(user, transaction);
