@@ -20,7 +20,7 @@ module.exports = {
                 const fileExtension = avatar.name.split('.').pop();
                 const photoName = `./${uuid}.${fileExtension}`;
 
-                await fs.mkdir(path.resolve(process.cwd(), 'public', photoDir), {recursive: true})
+                await fs.mkdir(path.resolve(process.cwd(), 'src', 'public', photoDir), {recursive: true})
                 await fs.mv(path.resolve(process.cwd(), 'src', 'public', photoName));
                 await userService.updateById(
                     newUser.id,

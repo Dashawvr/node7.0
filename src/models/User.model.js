@@ -31,7 +31,7 @@ UserModel.init({
     },
     avatar: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     }
 }, {
     sequelize,
