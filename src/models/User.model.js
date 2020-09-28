@@ -9,9 +9,13 @@ class UserModel extends Model {
 
 UserModel.init({
     id: {
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        type: DataTypes.INTEGER
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     email: {
         type: DataTypes.STRING,
@@ -24,6 +28,10 @@ UserModel.init({
         set(password) {
             this.setDataValue('password', hashPassword(password))
         }
+    },
+    avatar: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }, {
     sequelize,

@@ -8,8 +8,8 @@ const {
 } = require('../controllers');
 
 const {
-    checkMiddleware: {
-        checkMiddleware
+    checkFilesValidMiddleware: {
+        checkFilesValidMiddleware
     },
     checkUserPhotoMiddleware: {
         checkUserPhotoMiddleware
@@ -23,6 +23,6 @@ const router = express.Router();
 
 
 router.get('/', getAll);
-router.post('/', userValidation, checkMiddleware, checkUserPhotoMiddleware , create);
+router.post('/', userValidation, checkFilesValidMiddleware, checkUserPhotoMiddleware , create);
 
 module.exports = router

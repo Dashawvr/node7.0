@@ -2,7 +2,7 @@ const uuid = require('uuid');
 const fs = require('fs-extra').promises;
 
 const { emailService, userService } = require('../services');
-const { WELCOME } = require('../configs/email-action.enam');
+const { emailActionEnum: {WELCOME} } = require('../configs');
 const { transaction } = require('../transaction');
 
 module.exports = {
