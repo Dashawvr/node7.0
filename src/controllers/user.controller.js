@@ -16,18 +16,13 @@ module.exports = {
             await emailService.sendMail(user.email, WELCOME, {userName: user.email})
 
             if (avatar) {
-                const photoDir = `users/${newUser.id}/photos`;
+                const photoDir = `./users/${newUser.id}`;
                 const fileExtension = avatar.name.split('.').pop();
-                const photoName = `${uuid}.${fileExtension}`;
+                const photoName = `./${uuid}.${fileExtension}`;
 
                 await fs.mkdir(path.resolve(process.cwd(), 'src', 'public', photoDir), {recursive: true})
                 await fs.mv(path.resolve(process.cwd(), 'src', 'public', photoName));
-
-                console.log('*****');
-                console.log(newUser.id);
-                console.log('*****');
-
-                await userService.updateById(newUser.id, {avatar: `/${photoDir}/${photoName}`}, transaction)
+                await userService.updateById(newUser.id, {avatar: `${photoDir}/${photoName}`}, transaction)
             }
 
             await transaction.commit();
