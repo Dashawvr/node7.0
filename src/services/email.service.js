@@ -8,7 +8,7 @@ const { ROOT_EMAIL_PASS, ROOT_EMAIL, FRONTEND_URL } = require('../configs/config
 const emailTemplates = new EmailTemplates({
     message: null,
     views: {
-        root: path.join(process.cwd(), 'email-templates')
+        root: path.join(process.cwd(), 'src', 'email-templates')
     }
 })
 

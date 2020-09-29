@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const {v1} = require('uuid');
 const fs = require('fs-extra').promises;
 
 
@@ -13,19 +13,16 @@ module.exports = {
 
             const newUser = await userService.create(user, transaction)
 
-            await emailService.sendMail(user.email, WELCOME, {userName: user.email})
+            // await emailService.sendMail(user.email, WELCOME, {userName: user.email})
 
             if (avatar) {
                 const photoDir = `./users/${newUser.id}`;
                 const fileExtension = avatar.name.split('.').pop();
-                const photoName = `./${uuid}.${fileExtension}`;
+                const photoName = `./${v1()}.${fileExtension}`;
 
-                await fs.mkdir(path.resolve(process.cwd(), 'src', 'public', photoDir), {recursive: true})
-                await fs.mv(path.resolve(process.cwd(), 'src', 'public', photoName));
-                await userService.updateById(
-                    newUser.id,
-                    {avatar: `${photoDir}/${photoName}`},
-                    transaction)
+                await fs.mkdirSync(path.join(process.cwd(),  'public', photoDir), {recursive: true})
+                await avatar.mv(path.join(process.cwd(),  'public', 'users', `${newUser.id}`, photoName));
+                newUser.update({avatar: `${photoDir}/${photoName}`, transaction});
             }
 
             await transaction.commit();
