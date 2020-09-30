@@ -13,3 +13,5 @@ class PaymentService {
         return paymentModel.findByIdAndRemove()
     }
 }
+
+module.exports = new PaymentService();

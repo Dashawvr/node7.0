@@ -7,7 +7,7 @@ const fileUpload = require('express-fileupload');
 const path = require('path');
 
 const { initDBAssociation } = require('./models');
-const { userRouter, authRouter } = require('./routes');
+const { userRouter, authRouter, paymentRouter } = require('./routes');
 
 const app = express();
 
@@ -16,6 +16,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(fileUpload());
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
+app.use('/payment', paymentRouter);
 app.use(express.static(path.join(process.cwd(), 'src', 'public')))
 
 mongoose.connect(encodeURI( 'mongodb://localhost/nodeJS'), {useNewUrlParser: true});

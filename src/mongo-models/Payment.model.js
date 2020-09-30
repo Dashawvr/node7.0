@@ -2,7 +2,8 @@ const { Schema, model } = require('mongoose');
 
 const subSchema = {
     username: {
-        type: String
+        type: String,
+        ref: 'users'
     },
     email: {
         type: String
