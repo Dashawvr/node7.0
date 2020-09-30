@@ -1,9 +1,9 @@
 const {v1} = require('uuid');
-const fs = require('fs-extra').promises;
+const path = require('path');
+const fs = require('fs');
 
-
-const { emailService, userService } = require('../services');
-const { emailActionEnum: {WELCOME}, sequelize } = require('../configs');
+const {emailService, userService} = require('../services');
+const {emailActionEnum: {WELCOME}, sequelize} = require('../configs');
 
 module.exports = {
     create: async (req, res, next) => {
@@ -12,20 +12,21 @@ module.exports = {
             const {body: user, avatar} = req;
 
             const newUser = await userService.create(user, transaction)
-
-            // await emailService.sendMail(user.email, WELCOME, {userName: user.email})
+            await emailService.sendMail(user.email, WELCOME, {userName: user.email})
 
             if (avatar) {
-                const photoDir = `./users/${newUser.id}`;
+                const photoDir = `users/${newUser.id}`;
                 const fileExtension = avatar.name.split('.').pop();
-                const photoName = `./${v1()}.${fileExtension}`;
+                const photoName = `${v1()}.${fileExtension}`;
 
-                await fs.mkdirSync(path.join(process.cwd(),  'public', photoDir), {recursive: true})
-                await avatar.mv(path.join(process.cwd(),  'public', 'users', `${newUser.id}`, photoName));
-                newUser.update({avatar: `${photoDir}/${photoName}`, transaction});
+                fs.mkdirSync(path.join(process.cwd(), 'public', photoDir), {recursive: true})
+
+                await avatar.mv(path.join(process.cwd(), 'public', 'users', `${newUser.id}`, photoName));
+                await newUser.update({avatar: `${photoDir}/${photoName}`, transaction});
             }
 
             await transaction.commit();
+
             res.json({
                 data: {
                     newUser

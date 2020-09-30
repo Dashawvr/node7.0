@@ -5,6 +5,7 @@ const { userValidator: { userValidator }} = require('../validators');
     userValidation: async (req, res, next) => {
         try {
             const user = req.body;
+            console.log(req);
             const { error } = await userValidator.validate(user);
 
             if (error) {
